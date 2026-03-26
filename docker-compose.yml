@@ -5,7 +5,7 @@ services:
 
   sharelatex:
     restart: always
-    image: "arthurlefloch/sharelatex-arm:10.0.1"
+    image: "armtex:2026a"
     container_name: sharelatex
     volumes:
       - "~/envs/vmdata/overleaf/overleaf_data:/var/lib/overleaf"
