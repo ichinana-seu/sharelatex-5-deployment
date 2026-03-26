@@ -15,6 +15,7 @@ PS. 官方写的脚本需要兼容各个版本的Sharelatex（Overleaf），mong
 ```
 MONGO_ENABLED=true
 REDIS_ENABLED=true
+REDIS_AOF_PERSISTENCE=true
 ```
 
 ```
