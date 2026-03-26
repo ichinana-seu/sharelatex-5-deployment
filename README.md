@@ -11,7 +11,17 @@ PS. 官方写的脚本需要兼容各个版本的Sharelatex（Overleaf），mong
 2. 建议 MongoDB 版本 6.0
 3. 建议 redis 版本 6.2
 
-`NGINX_ENABLED=false`
+
+```
+MONGO_ENABLED=true
+REDIS_ENABLED=true
+```
+
+```
+NGINX_ENABLED=false
+GIT_BRIDGE_ENABLED=false
+SIBLING_CONTAINERS_ENABLED=false
+```
 
 
 ## init_run.sh / normal_run.sh 中的注意事项
