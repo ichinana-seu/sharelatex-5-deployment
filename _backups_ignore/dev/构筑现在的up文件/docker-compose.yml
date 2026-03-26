@@ -5,7 +5,7 @@ services:
 
   sharelatex:
     restart: always
-    image: "arthurlefloch/sharelatex-arm:10.0.1"
+    image: "sharelatex/sharelatex"
     container_name: sharelatex
     volumes:
       - "~/envs/vmdata/overleaf/overleaf_data:/var/lib/overleaf"
@@ -28,9 +28,9 @@ services:
         condition: service_healthy
       redis:
         condition: service_started
-    links:
-      - mongo
-      - redis
+      links:
+        - mongo
+        - redis
 
 
   redis:

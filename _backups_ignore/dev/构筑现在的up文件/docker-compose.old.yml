@@ -1,0 +1,75 @@
+---
+services:
+
+    sharelatex:
+        restart: always
+        image: "sharelatex/sharelatex"
+        container_name: sharelatex
+        volumes:
+            - "~/overleaf/overleaf_data:/var/lib/overleaf"
+        ports:
+            - "0.0.0.0:80:80"
+        environment:
+          GIT_BRIDGE_ENABLED: "false"
+          GIT_BRIDGE_HOST: "git-bridge"
+          GIT_BRIDGE_PORT: "8000"
+          REDIS_HOST: "redis"
+          REDIS_PORT: "6379"
+          V1_HISTORY_URL: "http://sharelatex:3100/api"
+        env_file:
+            - ../config/variables.env
+        stop_grace_period: 60s
+        
+---
+services:
+
+  sharelatex:
+    environment:
+      OVERLEAF_MONGO_URL: "mongodb://mongo/sharelatex"
+      OVERLEAF_REDIS_HOST: "redis"
+
+
+---
+services:
+
+    redis:
+        restart: always
+        image: "redis:6.2"
+        volumes:
+            - "~/overleaf/redis_data:/data"
+        container_name: redis
+        command: "redis-server --appendonly yes"
+        expose:
+            - 6379
+
+    sharelatex:
+      depends_on:
+        redis:
+          condition: service_started
+      links:
+        - redis
+
+---
+services:
+
+    mongo:
+        restart: always
+        image: "mongo:6.0"
+        command: "--replSet overleaf"
+        container_name: mongo
+        volumes:
+            - "~/overleaf/mongo_data:/data/db"
+        expose:
+            - 27017
+        healthcheck:
+            test: echo 'db.stats().ok' | mongosh localhost:27017/test --quiet
+            interval: 10s
+            timeout: 10s
+            retries: 5
+
+    sharelatex:
+      depends_on:
+        mongo:
+          condition: service_healthy
+      links:
+        - mongo
