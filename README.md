@@ -25,6 +25,18 @@ SIBLING_CONTAINERS_ENABLED=false
 ```
 
 
-## init_run.sh / normal_run.sh 中的注意事项
+## 脚本中的注意事项
 1. docker-compose指令是v1版本，如果无法运行，可用第二代docker compose指令代替。
 2. 如果权限不够，在自行修改脚本，docker命令前面加上sudo。
+
+## 步骤
+1. Move all files to `~/envs/vmdata/overleaf_toolbox_config/` .
+2. Edit `docker-compose.yml` and `variables.env` file as you like. For instance, (1) sharelatex image can be set to "arthurlefloch/sharelatex-arm:10.0.1" for arm64. (2) sharelatex image can be set to "sharelatex/sharelatex:5" for offical x86_64 images.
+3. `docker pull mongo:6.0` and `docker pull redis:6.2` .
+4. Run script `./init.sh` for initiating Mongo replica set (attention, must).
+5. Run `docker-compose stop`
+6. Run script `./start.sh` 
+
+## 步骤(postscripts)
+1. Run script `./stop.sh` to pause.
+2. Run script `./stop_and_down.sh` to delete docker containers. 
