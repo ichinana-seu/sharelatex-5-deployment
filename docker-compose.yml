@@ -8,7 +8,7 @@ services:
     image: "sharelatex/sharelatex"
     container_name: sharelatex
     volumes:
-      - "~/overleaf/overleaf_data:/var/lib/overleaf"
+      - "~/envs/vmdata/overleaf/overleaf_data:/var/lib/overleaf"
     ports:
       - "0.0.0.0:80:80"
     environment:
@@ -21,7 +21,7 @@ services:
       OVERLEAF_MONGO_URL: "mongodb://mongo/sharelatex"
       OVERLEAF_REDIS_HOST: "redis"
     env_file:
-      - ~/overleaf/the_toolbox_config/variables.env
+      - ~/envs/vmdata/overleaf_toolbox_config/variables.env
     stop_grace_period: 60s
     depends_on:
       mongo:
@@ -37,7 +37,7 @@ services:
     restart: always
     image: "redis:6.2"
     volumes:
-      - "~/overleaf/redis_data:/data"
+      - "~/envs/vmdata/overleaf/redis_data:/data"
     container_name: redis
     command: "redis-server --appendonly yes"
     expose:
@@ -50,7 +50,7 @@ services:
     command: "--replSet overleaf"
     container_name: mongo
     volumes:
-      - "~/overleaf/mongo_data:/data/db"
+      - "~/envs/vmdata/overleaf/mongo_data:/data/db"
     expose:
       - 27017
     healthcheck:
