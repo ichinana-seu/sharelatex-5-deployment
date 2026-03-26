@@ -27,4 +27,4 @@ SIBLING_CONTAINERS_ENABLED=false
 
 ## init_run.sh / normal_run.sh 中的注意事项
 1. docker-compose指令是v1版本，如果无法运行，可用第二代docker compose指令代替。
-2. 如果权限不够，在脚本前面加上sudo。
+2. 如果权限不够，在自行修改脚本，docker命令前面加上sudo。
