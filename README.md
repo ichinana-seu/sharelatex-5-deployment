@@ -34,9 +34,10 @@ SIBLING_CONTAINERS_ENABLED=false
 2. Edit `docker-compose.yml` and `variables.env` file as you like. For instance, (1) sharelatex image can be set to "arthurlefloch/sharelatex-arm:10.0.1" for arm64. (2) sharelatex image can be set to "sharelatex/sharelatex:5" for offical x86_64 images.
 3. `docker pull mongo:6.0` and `docker pull redis:6.2` .
 4. Run script `./init.sh` for initiating Mongo replica set (attention, must).
-5. Run `docker-compose stop`
-6. Run script `./start.sh` 
+5. Run script `./up.sh` .
+6. visit `http://localhost:80/launchpad` to register an ADMIN account.
 
 ## 步骤(postscripts)
 1. Run script `./stop.sh` to pause.
-2. Run script `./stop_and_down.sh` to delete docker containers. 
+2. Run script `./start.sh` to start from pause.
+3. Run script `./stop_and_down.sh` to delete docker containers. 
